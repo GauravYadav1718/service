@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - mern-network
+
+  backend:
+    build: ./backend
+    ports:
+      - '5001:5001'
+    environment:
+      - PORT=5001
+      - MONGODB_URI=mongodb://mongodb:27017/smart-leads
+      - JWT_SECRET=super_secret_dev_key
+      - NODE_ENV=development
+    depends_on:
+      - mongodb
+    networks:
+      - mern-network
+
+  frontend:
+    build: ./frontend
+    ports:
+      - '5173:5173'
+    environment:
+      - VITE_API_URL=http://localhost:5001/api
+    depends_on:
+      - backend
+    networks:
+      - mern-network
+
+networks:
+  mern-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:

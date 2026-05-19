@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  }
+  
+  /* Make the design look more basic/student-level as requested */
+  * {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    transition: none !important;
+  }
+}
